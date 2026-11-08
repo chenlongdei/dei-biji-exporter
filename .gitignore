@@ -1,0 +1,6 @@
+skills/biji-exporter/config.json
+__pycache__/
+*.pyc
+.DS_Store
+merged_*.csv
+merge_report.md
