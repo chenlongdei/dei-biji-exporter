@@ -7,6 +7,18 @@
 
 两件事：**① 登录得到大脑（Get笔记），把订阅博主的历史内容整包导出成逐字稿；② 把一堆数据表格合并成一张总表。**
 
+## 🚀 一句话安装
+
+打开你的 AI（Claude Code / WorkBuddy / 其他支持 skills 的 agent），把下面这句话**原样**发给它：
+
+```text
+帮我安装这个 skill，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei12-dev/dei-biji-exporter
+```
+
+AI 会自己下载、安装、检查环境，然后打开浏览器让你**扫码登录一次**得到大脑。之后直接说大白话就行，比如「把谢胜子的视频逐字稿全部导出来」。
+
+> 还没在得到大脑里订阅过博主？先看 👉 [前置教程：订阅一个抖音博主](skills/dei-biji-exporter/references/订阅博主教程.md)（手机 3 分钟，免费账号最多可订 30 个）
+
 ## 它能干嘛
 
 | 你想要 | 它做 | 用时 |
@@ -18,15 +30,12 @@
 | 「上次导到一半断了」 | 自动续传，只补缺的，已导的不动 | 看缺多少 |
 | 「这几张数据表给我合成一张」 | 目录一丢，自动判断摞起来还是按视频匹配合并，Excel 打开不乱码 | 秒级 |
 
-## 怎么安装（小白三步）
+## 安装细节（一句话安装背后发生了什么）
 
 **你只需要：一台 Mac 或 Windows 电脑 + 装了 Claude Code 或 WorkBuddy（或任何会用 skills 的 AI agent）+ 一个得到大脑（Get笔记）账号，并在里面订阅了想导出的抖音博主。**
 
-> 还没订阅过？看 👉 [前置教程：在得到大脑里订阅一个抖音博主](skills/dei-biji-exporter/references/订阅博主教程.md)（手机 3 分钟，免费账号就能订）
-
-0. **下载**：本页右上角绿色 **Code → Download ZIP**，解压；会用 git 的：`git clone https://github.com/chenlongdei12-dev/dei-biji-exporter.git`
-1. **把这个文件夹整个发给你的 AI**，对它说：
-   > 帮我安装这个工具包，按 INSTALL.md 操作
+1. **下载安装**：AI 按 [INSTALL.md](INSTALL.md) 把代码下载下来，复制到它的 skills 目录，并检查 Python、浏览器等环境
+   （AI 访问不了 GitHub 时的备用办法：本页右上角绿色 **Code → Download ZIP**，解压后把整个文件夹拖给 AI，说「帮我安装这个工具包，按 INSTALL.md 操作」）
 2. **登录一次**得到大脑：AI 会打开浏览器让你扫码，之后一直免登录（token 自动刷新）
 3. 完事。直接说大白话：「把谢胜子的内容全导出来」「把下载文件夹里那几张表合成一张」
 
@@ -55,7 +64,13 @@
 
 ## 怎么升级
 
-把新版文件夹再发一次给 AI，说「按 INSTALL.md 升级 dei-biji-exporter」（会保留你的 config.json、登录态和所有导出数据）。或 git 用户直接 `git pull`。
+同样一句话：
+
+```text
+帮我升级 dei-biji-exporter，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei12-dev/dei-biji-exporter
+```
+
+会保留你的 config.json、登录态和所有导出数据，不用重新扫码。
 
 ## 开源协议
 

@@ -1,10 +1,35 @@
 # INSTALL.md — 给 AI Agent 的安装指令
 
-你的用户想安装 dei-biji-exporter。按下面的顺序执行，遇到问题优先看文末排错表。
+你的用户想安装（或升级）dei-biji-exporter。按下面的顺序执行，遇到问题优先看文末排错表。
+**全程用大白话跟用户沟通**：用户多半不写代码，每一步告诉他在做什么，需要他动手（扫码）时再叫他。
+
+## 0. 拿到代码（用户只给了 GitHub 链接时）
+
+仓库：`https://github.com/chenlongdei12-dev/dei-biji-exporter`。先下载到一个临时目录，**下面三种方式任选一种能用的**：
+
+```bash
+# A. 有 git（git --version 能出版本号）
+git clone --depth 1 https://github.com/chenlongdei12-dev/dei-biji-exporter.git ~/dei-biji-exporter-src
+
+# B. macOS 没有 git：下载 zip（解压后的文件夹叫 dei-biji-exporter-main）
+curl -L -o /tmp/dei-biji-exporter.zip https://github.com/chenlongdei12-dev/dei-biji-exporter/archive/refs/heads/main.zip \
+  && unzip -q -o /tmp/dei-biji-exporter.zip -d ~ && mv ~/dei-biji-exporter-main ~/dei-biji-exporter-src
+```
+
+```powershell
+# C. Windows（PowerShell）没有 git
+Invoke-WebRequest -Uri https://github.com/chenlongdei12-dev/dei-biji-exporter/archive/refs/heads/main.zip -OutFile $env:TEMP\dei-biji-exporter.zip
+Expand-Archive -Force $env:TEMP\dei-biji-exporter.zip -DestinationPath $env:USERPROFILE
+Rename-Item $env:USERPROFILE\dei-biji-exporter-main dei-biji-exporter-src
+```
+
+- 下面说的「本文件夹」= 这个 `dei-biji-exporter-src`（如果用户直接把文件夹发给了你，就是那个文件夹）
+- 国内网络访问 GitHub 慢或失败：等一会重试，或请用户开一下网络加速后再试；**不要**改用来路不明的镜像站下载代码
+- 目标位置如果已经有同名的 `dei-biji-exporter-src`，先删掉旧的再下载
 
 ## 1. 安装 skill
 
-先弄清用户的 agent 类型，把 `skills/dei-biji-exporter` 复制到对应 skills 目录：
+先弄清用户的 agent 类型，把 `本文件夹/skills/dei-biji-exporter` 复制到对应 skills 目录（**已安装过就是升级**：直接覆盖复制即可，用户的 `config.json`、登录态、导出的文件都不会受影响）：
 
 | Agent | 安装目录 | Windows 下 |
 | --- | --- | --- |
@@ -13,8 +38,16 @@
 | 其他（OpenClaw/Codex 等） | 该 agent 的 skills 目录，结构不变 | 同理 |
 
 ```bash
-mkdir -p ~/.claude/skills && cp -r <本文件夹路径>/skills/dei-biji-exporter ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -R ~/dei-biji-exporter-src/skills/dei-biji-exporter ~/.claude/skills/
 ```
+
+```powershell
+# Windows
+New-Item -ItemType Directory -Force $env:USERPROFILE\.claude\skills | Out-Null
+Copy-Item -Recurse -Force $env:USERPROFILE\dei-biji-exporter-src\skills\dei-biji-exporter $env:USERPROFILE\.claude\skills\
+```
+
+装好后 `dei-biji-exporter-src` 这个临时下载目录可以删掉（下次升级重新下载）。
 
 只需 Python ≥3.9。**表格合并零第三方依赖；导出功能需要 playwright（第 3 步装）。**
 
@@ -29,11 +62,17 @@ mkdir -p ~/.claude/skills && cp -r <本文件夹路径>/skills/dei-biji-exporter
 3. **登录态不受影响**（仍在 `~/.biji_exporter/`），不用重新扫码
 4. 如果旧版装过每日同步：先在旧目录里跑 `run.py schedule remove`，再在新目录里重新 `schedule install`
 
-## 2. 创建配置
+## 2. 创建配置（已有 config.json 就跳过，**升级时千万别覆盖**）
 
 ```bash
 cd ~/.claude/skills/dei-biji-exporter
-cp config.example.json config.json
+[ -f config.json ] || cp config.example.json config.json
+```
+
+```powershell
+# Windows
+cd $env:USERPROFILE\.claude\skills\dei-biji-exporter
+if (-not (Test-Path config.json)) { Copy-Item config.example.json config.json }
 ```
 
 只读导出功能的用户到此即可开始；首次导出时按 SKILL.md 的「首次使用约定」问用户一次导出目录，写进 `biji_export_base`。
@@ -67,11 +106,23 @@ python3 run.py export-biji "<用户订阅的某博主名>" --max-items 3
 
 表格合并的冒烟：随手找两张 CSV 丢给 `python3 run.py merge-tables <文件...>`，看总表和 merge_report.md 生成。
 
+## 5. 装完告诉用户怎么用
+
+用一两句话告诉用户已经装好，以及接下来可以直接这样说（不需要记命令）：
+
+- 「我在得到大脑订阅了哪些博主？」
+- 「把谢胜子的视频逐字稿全部导出来」/「只要他最近 3 个月的」
+- 「以后他发新视频，每天自动帮我导」
+- 「把下载文件夹里那几张表合成一张」
+
+如果用户还没在得到大脑里订阅过博主，把 `skills/dei-biji-exporter/references/订阅博主教程.md` 的内容讲给他。
+
 ## 排错表
 
 | 症状 | 处理 |
 | --- | --- |
 | 任何不确定 | `python3 run.py doctor`，照 `next_action` 做 |
+| git clone / 下载 zip 失败 | 多半是网络访问 GitHub 不稳定：重试，或请用户开网络加速；换 0 步里另一种下载方式 |
 | pip 装 playwright 报 externally-managed | `python3 -m pip install --user --break-system-packages playwright` |
 | 装了 playwright 还说没装 | 用了 `pip3` 装到别的 Python 上了；改用 `python3 -m pip install --user playwright` |
 | login 报找不到浏览器 | 装 Google Chrome；或 `python3 -m playwright install chromium` |
