@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""biji-exporter 统一入口：自检、登录、按名导出、合并表格。
+"""dei-biji-exporter 统一入口：自检、登录、按名导出、合并表格。
 
   python3 run.py doctor                         # 环境自检：缺什么、下一步跑什么（出问题先跑它）
   python3 run.py login                          # 浏览器登录得到大脑（首次/换号，一次）
@@ -219,7 +219,7 @@ def cmd_sync(args):
         cfg = load_config()
         creds = _logged_in_creds()
         if not creds:
-            scheduler.notify("biji-exporter 每日同步失败", "登录已失效，请对 AI 说：重新登录得到大脑")
+            scheduler.notify("dei-biji-exporter 每日同步失败", "登录已失效，请对 AI 说：重新登录得到大脑")
             return 2
         token, csrf = creds
         targets = []
@@ -257,9 +257,9 @@ def cmd_sync(args):
         bad = [r for r in results if not r["ok"] or not r.get("complete", False)]
         _append_sync_log(results)
         if any(r.get("error_code") == "token_expired" for r in results):
-            scheduler.notify("biji-exporter 每日同步失败", "登录已失效，请对 AI 说：重新登录得到大脑")
+            scheduler.notify("dei-biji-exporter 每日同步失败", "登录已失效，请对 AI 说：重新登录得到大脑")
         elif new_total:
-            scheduler.notify("biji-exporter", f"今日同步完成：新增 {new_total} 篇逐字稿")
+            scheduler.notify("dei-biji-exporter", f"今日同步完成：新增 {new_total} 篇逐字稿")
         emit({"ok": not bad, "new_total": new_total, "results": results,
               "next_action": None if not bad else "有博主没同步完整，重跑 run.py sync（自动续传）"})
         return 0 if not bad else 2

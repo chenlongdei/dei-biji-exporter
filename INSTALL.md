@@ -1,10 +1,10 @@
 # INSTALL.md — 给 AI Agent 的安装指令
 
-你的用户想安装 biji-exporter。按下面的顺序执行，遇到问题优先看文末排错表。
+你的用户想安装 dei-biji-exporter。按下面的顺序执行，遇到问题优先看文末排错表。
 
 ## 1. 安装 skill
 
-先弄清用户的 agent 类型，把 `skills/biji-exporter` 复制到对应 skills 目录：
+先弄清用户的 agent 类型，把 `skills/dei-biji-exporter` 复制到对应 skills 目录：
 
 | Agent | 安装目录 | Windows 下 |
 | --- | --- | --- |
@@ -13,7 +13,7 @@
 | 其他（OpenClaw/Codex 等） | 该 agent 的 skills 目录，结构不变 | 同理 |
 
 ```bash
-mkdir -p ~/.claude/skills && cp -r <本文件夹路径>/skills/biji-exporter ~/.claude/skills/
+mkdir -p ~/.claude/skills && cp -r <本文件夹路径>/skills/dei-biji-exporter ~/.claude/skills/
 ```
 
 只需 Python ≥3.9。**表格合并零第三方依赖；导出功能需要 playwright（第 3 步装）。**
@@ -21,10 +21,18 @@ mkdir -p ~/.claude/skills && cp -r <本文件夹路径>/skills/biji-exporter ~/.
 - macOS：终端跑 `python3 --version`。如果弹窗要装「命令行开发者工具」，点安装，装完再继续（macOS 并不真正自带 Python）
 - Windows：从 python.org 装，勾选 **Add python.exe to PATH**；之后所有命令用 `python` 而非 `python3`
 
+### 从旧版 biji-exporter 升级（v1.2 起改名为 dei-biji-exporter）
+
+如果 skills 目录里已经有旧的 `biji-exporter` 文件夹：
+1. 把旧文件夹里的 `config.json`（如果有）复制到新的 `dei-biji-exporter/` 里
+2. 删除旧的 `biji-exporter` 文件夹（否则 agent 会看到两个同功能的 skill）
+3. **登录态不受影响**（仍在 `~/.biji_exporter/`），不用重新扫码
+4. 如果旧版装过每日同步：先在旧目录里跑 `run.py schedule remove`，再在新目录里重新 `schedule install`
+
 ## 2. 创建配置
 
 ```bash
-cd ~/.claude/skills/biji-exporter
+cd ~/.claude/skills/dei-biji-exporter
 cp config.example.json config.json
 ```
 
@@ -33,7 +41,7 @@ cp config.example.json config.json
 ## 3. 导出功能：自检 → 装依赖 → 登录（用户在场）
 
 ```bash
-cd ~/.claude/skills/biji-exporter/scripts
+cd ~/.claude/skills/dei-biji-exporter/scripts
 python3 run.py doctor       # 看哪项是 ❌，照 next_action 做；全绿直接 login
 ```
 

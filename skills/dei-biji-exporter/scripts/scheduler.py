@@ -1,7 +1,7 @@
 """每日自动同步：在本机系统里注册/查看/删除定时任务（不依赖任何 agent 常驻）。
 
-  macOS   → ~/Library/LaunchAgents/com.biji-exporter.sync.plist（launchd；睡眠错过的会在唤醒后补跑）
-  Windows → 任务计划程序 “biji-exporter-sync”（通过 .cmd 包装脚本调用，规避 /TR 长度限制）
+  macOS   → ~/Library/LaunchAgents/com.dei-biji-exporter.sync.plist（launchd；睡眠错过的会在唤醒后补跑）
+  Windows → 任务计划程序 “dei-biji-exporter-sync”（通过 .cmd 包装脚本调用，规避 /TR 长度限制）
   Linux   → 用户 crontab 里带标记的一行
 
 定时任务执行的是：<当前 python> run.py sync，日志写到 <数据目录>/sync.log。
@@ -15,9 +15,9 @@ from pathlib import Path
 
 import auth_helper
 
-LABEL = "com.biji-exporter.sync"
-WIN_TASK = "biji-exporter-sync"
-CRON_MARK = "# biji-exporter-sync"
+LABEL = "com.dei-biji-exporter.sync"
+WIN_TASK = "dei-biji-exporter-sync"
+CRON_MARK = "# dei-biji-exporter-sync"
 HERE = Path(__file__).resolve().parent
 LOG = auth_helper.DATA_DIR / "sync.log"
 
