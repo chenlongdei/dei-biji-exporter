@@ -12,8 +12,9 @@
 git clone --depth 1 https://github.com/chenlongdei12-dev/dei-biji-exporter.git ~/dei-biji-exporter-src
 
 # B. macOS 没有 git：下载 zip（解压后的文件夹叫 dei-biji-exporter-main）
+#    用系统自带的 ditto 解压（macOS 的 unzip 会把中文文件名弄成乱码）
 curl -L -o /tmp/dei-biji-exporter.zip https://github.com/chenlongdei12-dev/dei-biji-exporter/archive/refs/heads/main.zip \
-  && unzip -q -o /tmp/dei-biji-exporter.zip -d ~ && mv ~/dei-biji-exporter-main ~/dei-biji-exporter-src
+  && ditto -x -k /tmp/dei-biji-exporter.zip ~ && mv ~/dei-biji-exporter-main ~/dei-biji-exporter-src
 ```
 
 ```powershell
@@ -115,7 +116,7 @@ python3 run.py export-biji "<用户订阅的某博主名>" --max-items 3
 - 「以后他发新视频，每天自动帮我导」
 - 「把下载文件夹里那几张表合成一张」
 
-如果用户还没在得到大脑里订阅过博主，把 `skills/dei-biji-exporter/references/订阅博主教程.md` 的内容讲给他。
+如果用户还没在得到大脑里订阅过博主，把 `skills/dei-biji-exporter/references/subscribe-guide.md` 的内容讲给他。
 
 ## 排错表
 

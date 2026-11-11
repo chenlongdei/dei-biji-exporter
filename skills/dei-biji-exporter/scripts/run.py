@@ -160,7 +160,7 @@ def cmd_list(args):
                   file=sys.stderr)
     res = {"ok": True, "topic_count": len(out), "blogger_count": n_follow, "topics": out}
     if n_follow == 0:
-        res["next_action"] = ("账号里还没有订阅任何博主：把 references/订阅博主教程.md 发给用户，"
+        res["next_action"] = ("账号里还没有订阅任何博主：把 references/subscribe-guide.md 发给用户，"
                               "照着在得到大脑 App 里订阅一个，再回来导出")
     emit(res)
     return 0
