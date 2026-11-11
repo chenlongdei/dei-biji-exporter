@@ -1,5 +1,9 @@
 name: offline-tests
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
 jobs:
   test:
     strategy:
@@ -7,6 +11,9 @@ jobs:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
         python: ["3.9", "3.12"]
+        exclude:
+          - os: ubuntu-latest   # 新版 Ubuntu 运行环境已不提供 3.9；学员只用 Mac/Windows
+            python: "3.9"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
