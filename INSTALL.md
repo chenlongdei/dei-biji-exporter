@@ -5,21 +5,21 @@
 
 ## 0. 拿到代码（用户只给了 GitHub 链接时）
 
-仓库：`https://github.com/chenlongdei12-dev/dei-biji-exporter`。先下载到一个临时目录，**下面三种方式任选一种能用的**：
+仓库：`https://github.com/chenlongdei/dei-biji-exporter`。先下载到一个临时目录，**下面三种方式任选一种能用的**：
 
 ```bash
 # A. 有 git（git --version 能出版本号）
-git clone --depth 1 https://github.com/chenlongdei12-dev/dei-biji-exporter.git ~/dei-biji-exporter-src
+git clone --depth 1 https://github.com/chenlongdei/dei-biji-exporter.git ~/dei-biji-exporter-src
 
 # B. macOS 没有 git：下载 zip（解压后的文件夹叫 dei-biji-exporter-main）
 #    用系统自带的 ditto 解压（macOS 的 unzip 会把中文文件名弄成乱码）
-curl -L -o /tmp/dei-biji-exporter.zip https://github.com/chenlongdei12-dev/dei-biji-exporter/archive/refs/heads/main.zip \
+curl -L -o /tmp/dei-biji-exporter.zip https://github.com/chenlongdei/dei-biji-exporter/archive/refs/heads/main.zip \
   && ditto -x -k /tmp/dei-biji-exporter.zip ~ && mv ~/dei-biji-exporter-main ~/dei-biji-exporter-src
 ```
 
 ```powershell
 # C. Windows（PowerShell）没有 git
-Invoke-WebRequest -Uri https://github.com/chenlongdei12-dev/dei-biji-exporter/archive/refs/heads/main.zip -OutFile $env:TEMP\dei-biji-exporter.zip
+Invoke-WebRequest -Uri https://github.com/chenlongdei/dei-biji-exporter/archive/refs/heads/main.zip -OutFile $env:TEMP\dei-biji-exporter.zip
 Expand-Archive -Force $env:TEMP\dei-biji-exporter.zip -DestinationPath $env:USERPROFILE
 Rename-Item $env:USERPROFILE\dei-biji-exporter-main dei-biji-exporter-src
 ```

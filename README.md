@@ -1,6 +1,6 @@
 # dei-biji-exporter — 得到大脑批量导出 + 表格合并
 
-[![offline-tests](https://github.com/chenlongdei12-dev/dei-biji-exporter/actions/workflows/test.yml/badge.svg)](https://github.com/chenlongdei12-dev/dei-biji-exporter/actions/workflows/test.yml)
+[![offline-tests](https://github.com/chenlongdei/dei-biji-exporter/actions/workflows/test.yml/badge.svg)](https://github.com/chenlongdei/dei-biji-exporter/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 ![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)
 ![macOS | Windows](https://img.shields.io/badge/platform-macOS%20%7C%20Windows-lightgrey)
@@ -12,7 +12,7 @@
 打开你的 AI（Claude Code / WorkBuddy / 其他支持 skills 的 agent），把下面这句话**原样**发给它：
 
 ```text
-帮我安装这个 skill，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei12-dev/dei-biji-exporter
+帮我安装这个 skill，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei/dei-biji-exporter
 ```
 
 AI 会自己下载、安装、检查环境，然后打开浏览器让你**扫码登录一次**得到大脑。之后直接说大白话就行，比如「把谢胜子的视频逐字稿全部导出来」。
@@ -67,7 +67,7 @@ AI 会自己下载、安装、检查环境，然后打开浏览器让你**扫码
 同样一句话：
 
 ```text
-帮我升级 dei-biji-exporter，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei12-dev/dei-biji-exporter
+帮我升级 dei-biji-exporter，按仓库里的 INSTALL.md 操作：https://github.com/chenlongdei/dei-biji-exporter
 ```
 
 会保留你的 config.json、登录态和所有导出数据，不用重新扫码。
