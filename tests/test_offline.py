@@ -17,7 +17,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPTS = ROOT / "skills" / "biji-exporter" / "scripts"
+SCRIPTS = ROOT / "skills" / "dei-biji-exporter" / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import mock_server  # noqa: E402
@@ -284,7 +284,7 @@ class WorkflowTests(unittest.TestCase):
         try:
             e.config.write_text(json.dumps({"watch": [{"name": "x", "url": URL}]}), encoding="utf-8")
             for fake, expect in (("Darwin", "StartCalendarInterval"), ("Windows", "schtasks"),
-                                 ("Linux", "# biji-exporter-sync")):
+                                 ("Linux", "# dei-biji-exporter-sync")):
                 env = e.env()
                 env["BIJI_FAKE_OS"] = fake
                 r = subprocess.run([sys.executable, "run.py", "schedule", "install", "--time", "09:30",

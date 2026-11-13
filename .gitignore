@@ -1,6 +1,19 @@
-skills/biji-exporter/config.json
+skills/dei-biji-exporter/config.json
 __pycache__/
 *.pyc
 .DS_Store
 merged_*.csv
 merge_report.md
+
+# ---- 凭据与个人数据：永远不要提交 ----
+skills/*/config.json
+.biji_exporter/
+browser_data*/
+*credentials*.json
+*.token
+.env
+sync.log
+sync.lock
+_同步日志.md
+_空稿清单.md
+Get笔记导出/
